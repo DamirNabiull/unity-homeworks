@@ -12,7 +12,6 @@ public class FanConsoleDevice : MonoBehaviour
 
     public void Operate()
     {
-        Debug.Log("Operate");
         _isActive = !_isActive;
         _deltaTime = 0f;
     }
