@@ -16,6 +16,8 @@ public class ReactiveTarget : MonoBehaviour
     
     private IEnumerator Die()
     {
+        UIController.EnemyKilled();
+        
         transform.Rotate(-75, 0, 0);
         yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);

@@ -7,6 +7,7 @@ public class PlayerCharacter : MonoBehaviour
     private void Start()
     {
         _health = 5;
+        UIController.SetHealth(_health);
     }
     
     public void Hurt(int damage)
@@ -15,6 +16,8 @@ public class PlayerCharacter : MonoBehaviour
         {
             _health -= damage;
             Debug.Log($"Health: {_health}");
+        
+            UIController.SetHealth(_health);
         }
     }
 }
