@@ -10,6 +10,7 @@ public class RigidbodyShooter : MonoBehaviour
     
     private Camera _cam;
     private const int CrosshairSize = 20;
+    private static bool _inMenu = false;
     
     private void Start()
     {
@@ -36,6 +37,7 @@ public class RigidbodyShooter : MonoBehaviour
     
     private void RightMouseClick()
     {
+        if (_inMenu) return;
         StartCoroutine(FireballShoot());
     }
     
@@ -50,5 +52,10 @@ public class RigidbodyShooter : MonoBehaviour
         fireballRigidbody.velocity = transform.TransformDirection(new Vector3(0, ySpeed, zSpeed));
         yield return new WaitForSeconds(1);
         Destroy(fireball);
+    }
+    
+    public static void SetInMenu(bool value)
+    {
+        _inMenu = value;
     }
 }

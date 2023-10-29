@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class WanderingAI : MonoBehaviour
 {
-    public float speed = 3.0f;
+    private static float _speed = 3.0f;
     public float obstacleRange = 5.0f;
     [SerializeField] GameObject fireballPrefab;
     
@@ -14,6 +14,8 @@ public class WanderingAI : MonoBehaviour
     private float _rotationLeftTime;
     private float _targetAngle;
 
+    private static bool _inMenu = false;
+
     private void Start()
     {
         _isAlive = true;
@@ -23,7 +25,7 @@ public class WanderingAI : MonoBehaviour
     {
         if (_isAlive && !_isRotating)
         {
-            transform.Translate(0, 0, speed * Time.deltaTime);
+            transform.Translate(0, 0, _speed * Time.deltaTime);
         }
 
         if (_isRotating)
@@ -44,7 +46,7 @@ public class WanderingAI : MonoBehaviour
         if (Physics.SphereCast(ray, 0.75f, out var hit))
         {
             var hitObject = hit.transform.gameObject;
-            if (hitObject.GetComponent<PlayerCharacter>())
+            if (hitObject.GetComponent<PlayerCharacter>() && !_inMenu)
             {
                 if (fireball == null)
                 {
@@ -65,5 +67,15 @@ public class WanderingAI : MonoBehaviour
     public void SetAlive(bool alive)
     {
         _isAlive = alive;
+    }
+
+    public static void SetSpeed(float newSpeed)
+    {
+        _speed = newSpeed;
+    }
+    
+    public static void SetInMenu(bool value)
+    {
+        _inMenu = value;
     }
 }

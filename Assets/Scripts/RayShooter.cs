@@ -6,6 +6,7 @@ public class RayShooter : MonoBehaviour
 {
     private Camera _cam;
     private const int CrosshairSize = 20;
+    private static bool _inMenu = false;
     
     private void Start()
     {
@@ -17,7 +18,7 @@ public class RayShooter : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_inMenu)
         {
             var ray = GetRay();
             if (Physics.Raycast(ray, out var hit))
@@ -62,5 +63,10 @@ public class RayShooter : MonoBehaviour
         sphere.transform.position = pos;
         yield return new WaitForSeconds(1);
         Destroy(sphere);
+    }
+
+    public static void SetInMenu(bool value)
+    {
+        _inMenu = value;
     }
 }

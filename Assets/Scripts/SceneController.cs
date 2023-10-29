@@ -16,4 +16,10 @@ public class SceneController : MonoBehaviour
             _enemy.transform.Rotate(0, angle, 0);
         }
     }
+
+    public static void SetSpeedForAll(float speed)
+    {
+        WanderingAI.SetSpeed(speed);
+        FPSInput.SetSpeed(speed);
+    }
 }

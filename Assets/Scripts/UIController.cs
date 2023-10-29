@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class UIController : MonoBehaviour
 {
     public TextMeshProUGUI killedEnemiesCountText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI playerName;
+    public Slider speedSlider;
     public GameObject settingsForm;
     
     private static int _killedEnemies = 0;
@@ -26,6 +29,8 @@ public class UIController : MonoBehaviour
         _lookY = FindObjectOfType<MouseLookY>();
 
         playerName.text = "Player";
+        
+        SetSpeedForAll(speedSlider.value);
     }
 
     private void Update()
@@ -60,6 +65,11 @@ public class UIController : MonoBehaviour
         playerName.text = playerNameString;
     }
 
+    public void SetSpeedForAll(float speed)
+    {
+        SceneController.SetSpeedForAll(speed);
+    }
+
     public void ShowSettings()
     {
         settingsForm.SetActive(true);
@@ -74,6 +84,10 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0;
         
+        RayShooter.SetInMenu(true);
+        RigidbodyShooter.SetInMenu(true);
+        WanderingAI.SetInMenu(true);
+        
         _lookX.enabled = false;
         _lookY.enabled = false;
         
@@ -85,6 +99,10 @@ public class UIController : MonoBehaviour
     {
         HideSettings();
         Time.timeScale = 1;
+        
+        RayShooter.SetInMenu(false);
+        RigidbodyShooter.SetInMenu(false);
+        WanderingAI.SetInMenu(false);
         
         _lookX.enabled = true;
         _lookY.enabled = true;

@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 [AddComponentMenu("Control Script/FPS Input")]
 public class FPSInput : MonoBehaviour
 {
-    public float defaultSpeed = 6.0f;
+    private static float _defaultSpeed = 6.0f;
     public float jumpSpeed = 2.0f;
     public float gravity = -9.8f;
     private CharacterController _charController;
@@ -75,9 +75,14 @@ public class FPSInput : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            return defaultSpeed * 2;
+            return _defaultSpeed * 2;
         }
 
-        return defaultSpeed;
+        return _defaultSpeed;
+    }
+    
+    public static void SetSpeed(float newSpeed)
+    {
+        _defaultSpeed = newSpeed;
     }
 }
