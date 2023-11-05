@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class RayShooter : MonoBehaviour
 {
+    [SerializeField] AudioSource soundSource;
+    [SerializeField] AudioClip hitWallSound;
+    [SerializeField] AudioClip hitEnemySound;
+    
     private Camera _cam;
     private const int CrosshairSize = 20;
     private static bool _inMenu = false;
@@ -51,10 +55,15 @@ public class RayShooter : MonoBehaviour
         if (target != null)
         {
             target.ReactToHit();
+            soundSource.PlayOneShot(hitEnemySound);
             return true;
         }
-
-        return false;
+        else
+        {
+            StartCoroutine(SphereIndicator(hit.point));
+            soundSource.PlayOneShot(hitWallSound);
+            return false;
+        }
     }
     
     private IEnumerator SphereIndicator(Vector3 pos)
